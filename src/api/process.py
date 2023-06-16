@@ -36,7 +36,8 @@ def get_response(dataset_of: str) -> pd.DataFrame:
     # Remove any unnamed columns
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
-    return df
+    # We remove the first row because it contains the markdown divider ("----")
+    return df.iloc[1:]
 
 
 def get_models() -> list[str]:
