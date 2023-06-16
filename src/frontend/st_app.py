@@ -2,7 +2,7 @@ import streamlit as st
 import time
 
 from src.api.process import get_response
-from src.frontend.util import df_to_csv
+from src.frontend.util import df_to_csv, df_to_json
 
 app_title = "Dataset Generator"
 st.set_page_config(page_title=app_title)
@@ -17,6 +17,12 @@ def show_result():
         file_name="dataset.csv",
         mime="text/csv"
     )
+    st.download_button(
+        label="Export to JSON",
+        data=df_to_json(df),
+        file_name="dataset.json",
+        mime="application/json"
+    )
 
 
 # TODO: create a numerical box asking for the number of rows
@@ -28,6 +34,7 @@ with st.form("form"):
 
     # TODO: only allow the generate button to be enabled if the user input field is not empty
     invalid = False
+    # trigger submit when return key is pressed
     generate = st.form_submit_button(label="Generate dataset", disabled=invalid)
 
 if dataset:
