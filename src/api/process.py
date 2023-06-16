@@ -33,7 +33,8 @@ def get_response(dataset_of: str) -> pd.DataFrame:
     # The separator also appears at the end, so delete the last redundant column
     df.drop(df.columns[len(df.columns)-1], axis=1, inplace=True)
 
-    # TODO: drop unnamed columns
+    # Remove any unnamed columns
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
     return df
 
