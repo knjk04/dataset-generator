@@ -11,14 +11,14 @@ FORMAT = "%(asctime)s %(message)s"
 logger = logging.getLogger()
 
 
-def get_response(dataset_of: str) -> pd.DataFrame:
+def get_response(dataset_of: str, gpt_choice) -> pd.DataFrame:
     env = dotenv_values(".env")
     openai.api_key = env["OPENAI_API_KEY"]
 
     # TODO: allow users to use a different model
     response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=f"Generate a table of {dataset_of}",
+        model=gpt_choice,
+        prompt=f"Generate a markdown table of {dataset_of}",
         max_tokens=4000,
         temperature=0.2,
     )
@@ -41,5 +41,5 @@ def get_response(dataset_of: str) -> pd.DataFrame:
 
 
 def get_models() -> list[str]:
-    # text - davinci - 003, text - davinci - 002, davinci, curie, babbage, ada
-    raise NotImplementedError
+    # text-davinci-003, text-davinci-002, davinci, curie, babbage, ada
+    return ["text-davinci-003", "text-davinci-002", "davinci", "curie"]

@@ -1,7 +1,7 @@
 import streamlit as st
 import time
 
-from src.api.process import get_response
+from src.api.process import get_response, get_models
 from src.frontend.util import df_to_csv, df_to_json
 
 app_title = "Dataset Generator"
@@ -34,21 +34,19 @@ def show_result():
 
 # TODO: create a numerical box asking for the number of rows
 with st.form("form"):
-    # invalid = True
     dataset_entered = st.text_input(label="What would you like a dataset of?", placeholder="E.g. Harry Potter quotes")
-    # if dataset:
-    #     invalid = False
+
+    gpt_choice = st.radio("Which GPT model would you like to use?", get_models())
 
     # TODO: only allow the generate button to be enabled if the user input field is not empty
-    invalid = False
     # trigger submit when return key is pressed
-    generate_clicked = st.form_submit_button(label="Generate dataset", disabled=invalid)
+    generate_clicked = st.form_submit_button(label="Generate dataset", disabled=False)
 
 if generate_clicked:
     if dataset_entered:
         # Show spinner until a DataFrame is returned
         with st.spinner(f"Generating a dataset of {dataset_entered}..."):
-            df = get_response(dataset_entered)
+            df = get_response(dataset_entered, gpt_choice)
             # the truth value odf a DataFrame is ambiguous, so cannot use  'while not df'
             while df is None:
                 time.sleep(1)
