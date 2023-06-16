@@ -9,43 +9,55 @@ st.set_page_config(page_title=app_title)
 st.title(app_title)
 
 
+def show_export_buttons():
+    col1, col2 = st.columns(2, gap="small")
+    with col1:
+        st.download_button(
+            label="Export to CSV",
+            data=df_to_csv(df),
+            file_name="dataset.csv",
+            mime="text/csv"
+        )
+    with col2:
+        st.download_button(
+            label="Export to JSON",
+            data=df_to_json(df),
+            file_name="dataset.json",
+            mime="application/json"
+        )
+
+
 def show_result():
     st.dataframe(df, use_container_width=True)
-    st.download_button(
-        label="Export to CSV",
-        data=df_to_csv(df),
-        file_name="dataset.csv",
-        mime="text/csv"
-    )
-    st.download_button(
-        label="Export to JSON",
-        data=df_to_json(df),
-        file_name="dataset.json",
-        mime="application/json"
-    )
+    show_export_buttons()
 
 
 # TODO: create a numerical box asking for the number of rows
 with st.form("form"):
     # invalid = True
-    dataset = st.text_input(label="What would you like a dataset of?", placeholder="E.g. Harry Potter quotes")
+    dataset_entered = st.text_input(label="What would you like a dataset of?", placeholder="E.g. Harry Potter quotes")
     # if dataset:
     #     invalid = False
 
     # TODO: only allow the generate button to be enabled if the user input field is not empty
     invalid = False
     # trigger submit when return key is pressed
-    generate = st.form_submit_button(label="Generate dataset", disabled=invalid)
+    generate_clicked = st.form_submit_button(label="Generate dataset", disabled=invalid)
 
-if dataset:
-    with st.spinner(f"Generating a dataset of {dataset}..."):
-        time.sleep(5)
+if generate_clicked:
+    if dataset_entered:
+        # Show spinner until a DataFrame is returned
+        with st.spinner(f"Generating a dataset of {dataset_entered}..."):
+            df = get_response(dataset_entered)
+            # the truth value odf a DataFrame is ambiguous, so cannot use  'while not df'
+            while df is None:
+                time.sleep(1)
 
-if generate and dataset:
-    df = get_response(dataset)
-    # If dataframe is empty, show an error message and hide the download button
-    if df.empty:
-        st.error(f"We could not generate a {dataset} dataset. Try generating a different dataset.",
-                 icon="🤔")
+        if df.empty:
+            st.error(f"We could not generate a {dataset_entered} dataset. Try generating a different dataset.",
+                     icon="🤔")
+        else:
+            show_result()
     else:
-        show_result()
+        st.error(f"Please enter the dataset you would like us to generate (e.g. 'Harry Potter quotes') dataset.",
+                 icon="🥸")
