@@ -1,4 +1,11 @@
-# Running locally:
+# Dataset Generator
+
+A Streamlit web app that generates datasets using GPT models.
+
+Features:
+- Export dataset to CSV
+
+## Running locally:
 
 Prerequisites:
 - Python installed (test with Python 3.11)
