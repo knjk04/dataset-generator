@@ -3,7 +3,11 @@
 A Streamlit web app that generates datasets using GPT models.
 
 Features:
+- Choose between GPT 3.5 Turbo and text-davinci-003
 - Export dataset to CSV
+
+Note: the "text-davinci-002", "davinci" and "curie" models will not be supported as they don't perform as well for this
+use case
 
 ## Running locally:
 
