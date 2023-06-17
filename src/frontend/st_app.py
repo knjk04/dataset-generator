@@ -36,7 +36,16 @@ def show_result():
 with st.form("form"):
     dataset_entered = st.text_input(label="What would you like a dataset of?", placeholder="E.g. Harry Potter quotes")
 
-    gpt_choice = st.radio("Which GPT model would you like to use?", get_models())
+    # Manual line breaks are needed because this uses markdown format
+    tooltip = """
+    We recommend using GPT 3.5.
+
+    GPT 3.5 is newer and more capable. Its training data goes up to Sep 2021.
+
+    Da Vinci's training data only goes up to Oct 2019.
+    """
+
+    gpt_choice = st.radio("Which GPT model would you like to use?", get_models(), help=tooltip)
 
     # TODO: only allow the generate button to be enabled if the user input field is not empty
     # trigger submit when return key is pressed
@@ -49,6 +58,7 @@ if generate_clicked:
             df = get_response(dataset_entered, gpt_choice)
             # the truth value odf a DataFrame is ambiguous, so cannot use  'while not df'
             while df is None:
+                # check every 1 second
                 time.sleep(1)
 
         if df.empty:

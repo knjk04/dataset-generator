@@ -68,5 +68,3 @@ def get_da_vinci_response(dataset_of: str) -> str:
 def get_models() -> list[str]:
     return [m.value for m in Models]
 
-
-get_response("POTUS", "")
