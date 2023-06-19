@@ -1,5 +1,4 @@
 import logging
-import sys
 from enum import Enum
 
 import pandas as pd
@@ -7,9 +6,10 @@ from dotenv import dotenv_values
 from io import StringIO
 import openai
 
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-FORMAT = "%(asctime)s %(message)s"
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
+# Set other loggers to error to not clutter this app's logs
+logging.basicConfig(level=logging.ERROR)
+logging.getLogger(__name__).setLevel(logging.DEBUG)
 
 
 class Models(Enum):
