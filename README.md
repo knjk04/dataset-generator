@@ -24,3 +24,8 @@ Steps:
     OPENAI_API_KEY=ab-0a0aaaaA0aaAAa0AaaaaA00aaaAA0aA0aaA0AaAAaaaaaa00
     ```
 3. Install dependencies: `pip install -r src/requirements.txt`
+
+Configure development environment:
+1. Run pip install -r src/requirements-dev.txt
+1. Install pre-commit hook: pre-commit install
+1. (Optional) run hook: pre-commit run --all-files
