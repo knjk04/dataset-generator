@@ -28,6 +28,11 @@ Steps:
     OPENAI_API_KEY=ab-0a0aaaaA0aaAAa0AaaaaA00aaaAA0aA0aaA0AaAAaaaaaa00
     ```
 3. Install dependencies: `pip install -r src/requirements.txt`
+
+Run backend:
+1. In the project's root directory, run `python src/backend/app.py`
+
+Run frontend:
 1. Change to `src` directory: `cd src`
 1. Run app: `python -m streamlit run frontend/st_app.py`
 
