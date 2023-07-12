@@ -2,7 +2,8 @@ import time
 
 import streamlit as st
 
-from api.process import get_models, get_response
+from frontend.process import get_response
+from frontend.api import get_models
 from frontend.util import df_to_csv, df_to_json
 
 app_title = "Dataset Generator"
@@ -37,7 +38,7 @@ def show_result():
 with st.form("form"):
     dataset_entered = st.text_input(label="What would you like a dataset of?", placeholder="E.g. Harry Potter quotes")
 
-    # Manual line breaks are needed because this uses markdown format
+    # Manual line breaks are needed because this uses Markdown format
     tooltip = """
     We recommend using GPT 3.5.
 

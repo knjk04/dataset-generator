@@ -63,7 +63,3 @@ def get_da_vinci_response(dataset_of: str) -> str:
     )
     logger.debug(f"Tokens used: {response.usage.total_tokens}")
     return response.choices[0].text
-
-
-def get_models() -> list[str]:
-    return [m.value for m in Models]
