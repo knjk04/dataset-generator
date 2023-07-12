@@ -1,6 +1,8 @@
-# Dataset Generator
-
 ![Dataset generator screenshot](docs/readme-feature-image.png)
+
+<p align="center">
+    <img src="https://img.shields.io/badge/semantic_release-conventional_commits-e10079?logo=semantic-release" alt="Conventional commits badge"/>
+</p>
 
 A Streamlit web app that generates datasets using GPT models.
 
