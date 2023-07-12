@@ -2,8 +2,7 @@ import time
 
 import streamlit as st
 
-from frontend.process import get_response
-from frontend.api import get_models
+from frontend.api import get_models, get_response
 from frontend.util import df_to_csv, df_to_json
 
 app_title = "Dataset Generator"
