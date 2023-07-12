@@ -1,5 +1,7 @@
 # Dataset Generator
 
+![Dataset generator screenshot](docs/readme-feature-image.png)
+
 A Streamlit web app that generates datasets using GPT models.
 
 Features:
