@@ -1,11 +1,11 @@
 import logging
 import sys
 from enum import Enum
+from io import StringIO
 
+import openai
 import pandas as pd
 from dotenv import dotenv_values
-from io import StringIO
-import openai
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 FORMAT = "%(asctime)s %(message)s"
@@ -67,4 +67,3 @@ def get_da_vinci_response(dataset_of: str) -> str:
 
 def get_models() -> list[str]:
     return [m.value for m in Models]
-

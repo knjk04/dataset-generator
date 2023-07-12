@@ -1,7 +1,8 @@
-import streamlit as st
 import time
 
-from src.api.process import get_response, get_models
+import streamlit as st
+
+from src.api.process import get_models, get_response
 from src.frontend.util import df_to_csv, df_to_json
 
 app_title = "Dataset Generator"
