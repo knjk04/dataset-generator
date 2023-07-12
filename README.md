@@ -42,3 +42,8 @@ Mark the `src` directory as sources root:
 
 To do this, go to Settings > Project > Project Structure. Then, click on the `src` folder. Finally, click on the 
 blue Sources button.
+
+# Disclaimer
+
+The quality of the datasets generated depend on the responses by OpenAI GPT models. Consequently, they may not be 
+factually correct. Please corroborate any data generated with factual sources.
