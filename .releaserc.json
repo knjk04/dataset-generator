@@ -1,5 +1,11 @@
 {
-  "branches": [],
+  "branches": [
+    "main",
+    {
+      "name": "alpha",
+      "prerelease": true
+    }
+  ],
   "preset": "conventionalcommits",
   "plugins": [
     "@semantic-release/commit-analyzer",
