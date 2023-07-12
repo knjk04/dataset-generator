@@ -17,15 +17,24 @@ Prerequisites:
 Steps:
 
 1. Create a `.env` file in the root directory of the repository
-2. Add your OpenAI API key in the .env file.
+1. Add your OpenAI API key in the .env file.
   - The environment variable should have `OPENAI_API_KEY` as the key name.
   - Example file (not a real API key):
     ```
     OPENAI_API_KEY=ab-0a0aaaaA0aaAAa0AaaaaA00aaaAA0aA0aaA0AaAAaaaaaa00
     ```
 3. Install dependencies: `pip install -r src/requirements.txt`
+1. Change to `src` directory: `cd src`
+1. Run app: python -m streamlit run frontend/st_app.py
 
-Configure development environment:
+## Configure development environment:
 1. Run pip install -r src/requirements-dev.txt
 1. Install pre-commit hook: pre-commit install
 1. (Optional) run hook: pre-commit run --all-files
+
+PyCharm:
+Mark the `src` directory as sources root:
+![PyCharm sources root](docs/pycharm.png)
+
+To do this, go to Settings > Project > Project Structure. Then, click on the `src` folder. Finally, click on the 
+blue Sources button.
