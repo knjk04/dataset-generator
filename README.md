@@ -29,7 +29,7 @@ Steps:
     ```
 3. Install dependencies: `pip install -r src/requirements.txt`
 1. Change to `src` directory: `cd src`
-1. Run app: python -m streamlit run frontend/st_app.py
+1. Run app: `python -m streamlit run frontend/st_app.py`
 
 ## Configure development environment:
 1. Run pip install -r src/requirements-dev.txt
