@@ -1,8 +1,7 @@
 from enum import Enum
 
 import openai
-from dotenv import dotenv_values
-from flask import Flask
+from flask import Flask, request, abort
 
 app = Flask(__name__)
 
@@ -20,18 +19,26 @@ def get_models() -> list[str]:
 
 @app.route("/gpt-3.5/<dataset>")
 def get_gpt_3_5_response(dataset: str) -> str:
-    env = dotenv_values(".env")
-    openai.api_key = env["OPENAI_API_KEY"]
+    openai.api_key = request.headers.get("Authorization")
+    if not openai.api_key:
+        abort(403, "API key not given")
+    print("API key: " + openai.api_key)
 
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            # Have to say 'make' not 'generate' for GPT 3.5 to work
-            {"role": "user", "content": f"Make a markdown table of {dataset}"}
-        ]
-    )
-    # TODO: handle rate limit error
-    return response.choices[0].message.content
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "user",
+                    # Have to say 'make' not 'generate' for GPT 3.5 to work
+                    "content": f"Make a markdown table of {dataset}"
+                }
+            ]
+        )
+        # TODO: handle rate limit error
+        return response.choices[0].message.content
+    except openai.error.AuthenticationError:
+        abort (403, "API key given is not valid")
 
 
 if __name__ == '__main__':
