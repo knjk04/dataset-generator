@@ -9,7 +9,6 @@ from io import StringIO
 
 import openai
 import pandas as pd
-from dotenv import dotenv_values
 
 
 BASE_URL = "http://127.0.0.1:8000"
@@ -54,12 +53,18 @@ def get_da_vinci_response(dataset_of: str) -> str:
     return response.choices[0].text
 
 
-def get_response(dataset_of: str, gpt_choice) -> pd.DataFrame:
-    env = dotenv_values(".env")
-    openai.api_key = env["OPENAI_API_KEY"]
+def get_auth_header(api_key: str):
+    return {
+        "Authorization": api_key
+    }
 
+
+def get_response(dataset_of: str, gpt_choice, api_key: str) -> pd.DataFrame:
+    headers = get_auth_header(api_key)
     if gpt_choice == Models.GPT_3_5.value:
-        answer = get_gpt_3_5_response(dataset_of)
+        url = f"{BASE_URL}/gpt-3.5/{dataset_of}"
+        response = requests.get(url=url, headers=headers)
+        answer = response.text
     else:
         answer = get_da_vinci_response(dataset_of)
     print(answer)
