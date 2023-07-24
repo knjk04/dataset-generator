@@ -3,6 +3,8 @@ from enum import Enum
 import openai
 from flask import Flask, request, abort
 
+from backend.http_status_codes import StatusCodes
+
 app = Flask(__name__)
 
 
@@ -21,8 +23,7 @@ def get_models() -> list[str]:
 def get_gpt_3_5_response(dataset: str) -> str:
     openai.api_key = request.headers.get("Authorization")
     if not openai.api_key:
-        abort(403, "API key not given")
-    print("API key: " + openai.api_key)
+        abort(StatusCodes.UNAUTHORISED.value, "API key not given")
 
     try:
         response = openai.ChatCompletion.create(
@@ -38,7 +39,7 @@ def get_gpt_3_5_response(dataset: str) -> str:
         # TODO: handle rate limit error
         return response.choices[0].message.content
     except openai.error.AuthenticationError:
-        abort (403, "API key given is not valid")
+        abort(StatusCodes.UNAUTHORISED.value, "API key given is not valid")
 
 
 if __name__ == '__main__':
