@@ -19,15 +19,7 @@ Prerequisites:
 - Python installed (test with Python 3.11)
 
 Steps:
-
-1. Create a `.env` file in the root directory of the repository
-1. Add your OpenAI API key in the .env file.
-  - The environment variable should have `OPENAI_API_KEY` as the key name.
-  - Example file (not a real API key):
-    ```
-    OPENAI_API_KEY=ab-0a0aaaaA0aaAAa0AaaaaA00aaaAA0aA0aaA0AaAAaaaaaa00
-    ```
-3. Install dependencies: `pip install -r src/requirements.txt`
+1. Install dependencies: `pip install -r src/requirements.txt`
 
 Run backend:
 1. In the project's root directory, run `python src/backend/app.py`
@@ -45,10 +37,10 @@ PyCharm:
 Mark the `src` directory as sources root:
 ![PyCharm sources root](docs/pycharm.png)
 
-To do this, go to Settings > Project > Project Structure. Then, click on the `src` folder. Finally, click on the 
+To do this, go to Settings > Project > Project Structure. Then, click on the `src` folder. Finally, click on the
 blue Sources button.
 
 # Disclaimer
 
-The quality of the datasets generated depend on the responses by OpenAI GPT models. Consequently, they may not be 
+The quality of the datasets generated depend on the responses by OpenAI GPT models. Consequently, they may not be
 factually correct. Please corroborate any data generated with factual sources.

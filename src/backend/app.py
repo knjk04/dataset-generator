@@ -1,7 +1,7 @@
 from enum import Enum
 
 import openai
-from flask import Flask, request, abort
+from flask import Flask, abort, request
 
 from backend.http_status_codes import StatusCodes
 

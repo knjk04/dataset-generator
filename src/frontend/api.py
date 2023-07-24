@@ -1,15 +1,12 @@
 import ast
 import logging
 from enum import Enum
-from typing import List
-
-import requests
-
 from io import StringIO
+from typing import List
 
 import openai
 import pandas as pd
-
+import requests
 
 BASE_URL = "http://127.0.0.1:8000"
 
@@ -61,4 +58,3 @@ def str_to_df(s: str) -> pd.DataFrame:
 
     # We remove the first row because it contains the markdown divider ("----")
     return df.iloc[1:]
-
