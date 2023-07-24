@@ -42,6 +42,25 @@ def get_gpt_3_5_response(dataset: str) -> str:
         abort(StatusCodes.UNAUTHORISED.value, "API key given is not valid")
 
 
+@app.route("/davinci/<dataset>")
+def get_davinci_response(dataset: str) -> str:
+    openai.api_key = request.headers.get("Authorization")
+    if not openai.api_key:
+        abort(StatusCodes.UNAUTHORISED.value, "API key not given")
+
+    try:
+        response = openai.Completion.create(
+            model=Models.DAVINCI.value,
+            prompt=f"Generate a markdown table of {dataset}",
+            max_tokens=4000,
+            temperature=0.2,
+        )
+        # TODO: handle rate limit error
+        return response.choices[0].text
+    except openai.error.AuthenticationError:
+        abort(StatusCodes.UNAUTHORISED.value, "API key given is not valid")
+
+
 if __name__ == '__main__':
     # Streamlit runs on port 5000 by default, so use a different port
     app.run(port=8000)
