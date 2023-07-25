@@ -34,9 +34,9 @@ The frontend depends on the backend, so make sure you run the backend first and 
 Then, go to `http://localhost:8501/` to access the frontend.
 
 ## Configure development environment:
-1. Run pip install -r src/requirements-dev.txt
-1. Install pre-commit hook: pre-commit install
-1. (Optional) run hook: pre-commit run --all-files
+1. Run `pip install -r requirements-dev.txt`
+1. Install pre-commit hook: `pre-commit install`
+1. (Optional) run hook: `pre-commit run --all-files`
 
 PyCharm:
 Mark the `src` directory as sources root:
