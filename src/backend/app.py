@@ -27,7 +27,7 @@ def get_gpt_3_5_response(dataset: str) -> str:
 
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=Models.GPT_3_5.value,
             messages=[
                 {
                     "role": "user",
