@@ -1,5 +1,6 @@
 import time
 
+import pandas as pd
 import streamlit as st
 
 from frontend.api import get_models, get_response
@@ -10,7 +11,7 @@ st.set_page_config(page_title=app_title)
 st.title(app_title)
 
 
-def show_export_buttons():
+def show_export_buttons(df: pd.DataFrame):
     col1, col2 = st.columns(2, gap="small")
     with col1:
         st.download_button(
@@ -28,9 +29,9 @@ def show_export_buttons():
         )
 
 
-def show_result():
+def show_result(df: pd.DataFrame):
     st.dataframe(df, use_container_width=True)
-    show_export_buttons()
+    show_export_buttons(df)
 
 
 def get_gpt_radio():
@@ -61,17 +62,20 @@ with st.form("form"):
     generate_clicked = st.form_submit_button(label="Generate dataset",
                                              disabled=False)
 
-if generate_clicked:
+
+def generate_dataset():
     if not api_key:
         st.error(
             f"You did not enter in an API key. Please enter your OpenAI API "
             f"key and try again", icon="🥸"
         )
+        return
     if not dataset_entered:
         st.error(
             f"Please enter the dataset you would like us to generate (e.g. "
             f"'Harry Potter quotes') dataset.", icon="🥸"
         )
+        return
 
     # Show spinner until a DataFrame is returned
     with st.spinner(f"Generating a dataset of {dataset_entered}..."):
@@ -88,4 +92,8 @@ if generate_clicked:
             f"Try generating a different dataset.", icon="🤔"
         )
     else:
-        show_result()
+        show_result(df)
+
+
+if generate_clicked:
+    generate_dataset()
