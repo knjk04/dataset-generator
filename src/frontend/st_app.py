@@ -4,6 +4,7 @@ import pandas as pd
 import streamlit as st
 
 from frontend.api import get_models, get_response
+from frontend.server_exception import ServerException
 from frontend.util import df_to_csv, df_to_json
 
 app_title = "Dataset Generator"
@@ -79,12 +80,16 @@ def generate_dataset():
 
     # Show spinner until a DataFrame is returned
     with st.spinner(f"Generating a dataset of {dataset_entered}..."):
-        df = get_response(dataset_entered, gpt_choice, api_key)
-        # the truth value of a DataFrame is ambiguous, so cannot use
-        # 'while not df'
-        while df is None:
-            # check every 1 second
-            time.sleep(1)
+        try:
+            df = get_response(dataset_entered, gpt_choice, api_key)
+            # the truth value of a DataFrame is ambiguous, so cannot use
+            # 'while not df'
+            while df is None:
+                # check every 1 second
+                time.sleep(1)
+        except ServerException as e:
+            st.error(e.message)
+            return
 
     if df.empty:
         st.error(
