@@ -9,7 +9,7 @@ from typing import List
 import pandas as pd
 import requests
 
-from frontend.server_exception import ServerException
+from frontend.src.server_exception import ServerException
 
 BASE_URL = "http://127.0.0.1:8000"
 

@@ -3,9 +3,9 @@ import time
 import pandas as pd
 import streamlit as st
 
-from frontend.api import get_models, get_response
-from frontend.server_exception import ServerException
-from frontend.util import df_to_csv, df_to_json
+from frontend.src.api import get_models, get_response
+from frontend.src.server_exception import ServerException
+from frontend.src.util import df_to_csv, df_to_json
 
 app_title = "Dataset Generator"
 st.set_page_config(page_title=app_title)
