@@ -16,17 +16,22 @@ use case
 ## Running locally:
 
 Prerequisites:
-- Python installed (test with Python 3.11)
+- Docker
 
-Steps:
-1. Install dependencies: `pip install -r src/requirements.txt`
+### Run backend
+1. Change to `frontend` directory: `cd frontend`
+1. Build the Docker image: `docker build -t flask .`
+1. Run the Docker container: `docker run -p 8000:8000 flask`
 
-Run backend:
-1. In the project's root directory, run `python src/backend/app.py`
+The server will run on `http://127.0.0.1:8000`. To test it is working, go this URL in your browser: `http://127.0.0.1:8000/models`.
 
-Run frontend:
-1. Change to `src` directory: `cd src`
-1. Run app: `python -m streamlit run frontend/st_app.py`
+### Run frontend
+The frontend depends on the backend, so make sure you run the backend first and keep it running
+1. Change to `frontend` directory: `cd frontend`
+1. Build the Docker image: `docker build -t streamlit .`
+1. Run the Docker container: `docker run -p 8501:8501 streamlit`
+
+Then, go to `http://localhost:8501/` to access the frontend.
 
 ## Configure development environment:
 1. Run pip install -r src/requirements-dev.txt
