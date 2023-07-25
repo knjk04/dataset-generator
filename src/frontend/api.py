@@ -1,12 +1,15 @@
 import ast
+import bs4
 import logging
 from enum import Enum
 from io import StringIO
+from requests.exceptions import HTTPError
 from typing import List
 
-import openai
 import pandas as pd
 import requests
+
+from frontend.server_exception import ServerException
 
 BASE_URL = "http://127.0.0.1:8000"
 
@@ -41,8 +44,18 @@ def get_response(dataset_of: str, gpt_choice, api_key: str) -> pd.DataFrame:
         url = f"{BASE_URL}/davinci/{dataset_of}"
 
     headers = get_auth_header(api_key)
-    response = requests.get(url=url, headers=headers)
-    return str_to_df(response.text)
+
+    try:
+        response = requests.get(url=url, headers=headers)
+        response.raise_for_status()
+        status_code = response.status_code
+        if status_code == 200:
+            return str_to_df(response.text)
+    except HTTPError as e:
+        html = bs4.BeautifulSoup(e.response.text, features="html.parser")
+        server_message = html.p.text
+        logger.info(server_message)
+        raise ServerException(server_message)
 
 
 # TODO: add a function that checks if the input is valid markdown

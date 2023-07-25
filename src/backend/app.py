@@ -3,6 +3,7 @@ from enum import Enum
 import openai
 from flask import Flask, abort, request
 
+from backend.error_messages import ErrorMessages
 from backend.http_status_codes import StatusCodes
 
 app = Flask(__name__)
@@ -23,7 +24,7 @@ def get_models() -> list[str]:
 def get_gpt_3_5_response(dataset: str) -> str:
     openai.api_key = request.headers.get("Authorization")
     if not openai.api_key:
-        abort(StatusCodes.UNAUTHORISED.value, "API key not given")
+        abort(StatusCodes.UNAUTHORISED.value, ErrorMessages.NO_API_KEY.value)
 
     try:
         response = openai.ChatCompletion.create(
@@ -36,17 +37,24 @@ def get_gpt_3_5_response(dataset: str) -> str:
                 }
             ]
         )
-        # TODO: handle rate limit error
         return response.choices[0].message.content
+    except openai.error.RateLimitError:
+        abort(
+            StatusCodes.BAD_REQUEST.value,
+            ErrorMessages.RATE_LIMIT.value
+        )
     except openai.error.AuthenticationError:
-        abort(StatusCodes.UNAUTHORISED.value, "API key given is not valid")
+        abort(
+            StatusCodes.UNAUTHORISED.value,
+            ErrorMessages.INVALID_API_KEY.value
+        )
 
 
 @app.route("/davinci/<dataset>")
 def get_davinci_response(dataset: str) -> str:
     openai.api_key = request.headers.get("Authorization")
     if not openai.api_key:
-        abort(StatusCodes.UNAUTHORISED.value, "API key not given")
+        abort(StatusCodes.UNAUTHORISED.value, ErrorMessages.NO_API_KEY.value)
 
     try:
         response = openai.Completion.create(
@@ -55,10 +63,15 @@ def get_davinci_response(dataset: str) -> str:
             max_tokens=4000,
             temperature=0.2,
         )
-        # TODO: handle rate limit error
         return response.choices[0].text
+    except openai.error.RateLimitError:
+        abort(
+            StatusCodes.BAD_REQUEST.value,
+            ErrorMessages.RATE_LIMIT.value
+        )
     except openai.error.AuthenticationError:
-        abort(StatusCodes.UNAUTHORISED.value, "API key given is not valid")
+        abort(StatusCodes.UNAUTHORISED.value,
+              ErrorMessages.INVALID_API_KEY.value)
 
 
 if __name__ == '__main__':
