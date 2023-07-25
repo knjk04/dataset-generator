@@ -17,21 +17,11 @@ use case
 
 Prerequisites:
 - Docker
+   - Windows or macOS: install [Docker Desktop](https://www.docker.com/products/docker-desktop)
+   - Linux: install [Docker Engine](https://docs.docker.com/engine/) and [Docker Compose](https://docs.docker.com/compose/)
 
-### Run backend
-1. Change to `frontend` directory: `cd frontend`
-1. Build the Docker image: `docker build -t flask .`
-1. Run the Docker container: `docker run -p 8000:8000 flask`
-
-The server will run on `http://127.0.0.1:8000`. To test it is working, go this URL in your browser: `http://127.0.0.1:8000/models`.
-
-### Run frontend
-The frontend depends on the backend, so make sure you run the backend first and keep it running
-1. Change to `frontend` directory: `cd frontend`
-1. Build the Docker image: `docker build -t streamlit .`
-1. Run the Docker container: `docker run -p 8501:8501 streamlit`
-
-Then, go to `http://localhost:8501/` to access the frontend.
+1. In the root of the project, run `docker-compose up`
+1. Go to `http://localhost:8501/` to access the frontend.
 
 ## Configure development environment:
 1. Run `pip install -r requirements-dev.txt`
