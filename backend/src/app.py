@@ -3,8 +3,8 @@ from enum import Enum
 import openai
 from flask import Flask, abort, request
 
-from backend.error_messages import ErrorMessages
-from backend.http_status_codes import StatusCodes
+from .error_messages import ErrorMessages
+from .http_status_codes import StatusCodes
 
 app = Flask(__name__)
 
