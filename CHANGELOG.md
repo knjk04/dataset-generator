@@ -1,3 +1,10 @@
+## [2.1.0](https://github.com/knjk04/dataset-generator/compare/v2.0.1...v2.1.0) (2023-07-26)
+
+
+### Features
+
+* **#20:** dockerise app ([04f12b1](https://github.com/knjk04/dataset-generator/commit/04f12b1b27e72d12b6658c4b4eb8c517f13ea776)), closes [#20](https://github.com/knjk04/dataset-generator/issues/20)
+
 ## [2.0.1](https://github.com/knjk04/dataset-generator/compare/v2.0.0...v2.0.1) (2023-07-25)
 
 
