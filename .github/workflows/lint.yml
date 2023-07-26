@@ -1,0 +1,28 @@
+name: Precommit Lint
+on:
+  push:
+    branches:
+      - "main"
+      - "alpha"
+  pull_request:
+    branches:
+      - "main"
+      - "alpha"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Source Files
+        uses: actions/checkout@v2
+
+      - name: Install and run pre-commit
+        working-directory: frontend
+        run: |
+          sudo apt update -y
+          sudo apt install -y python3-pip
+          pip install pre-commit
+          pre-commit install
+          pre-commit run --all-files
