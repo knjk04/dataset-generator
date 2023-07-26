@@ -22,6 +22,6 @@ jobs:
         working-directory: frontend
         run: |
           sudo apt update -y
-          apt install -y python3-pip
+          sudo apt install -y python3-pip
           pre-commit install
           pre-commit run --all-files
