@@ -20,7 +20,8 @@ Prerequisites:
    - Windows or macOS: install [Docker Desktop](https://www.docker.com/products/docker-desktop)
    - Linux: install [Docker Engine](https://docs.docker.com/engine/) and [Docker Compose](https://docs.docker.com/compose/)
 
-1. In the root of the project, run `docker-compose up`
+1. In the root of the project, build the images: `docker-compose build`
+1. Run the services: `docker-compose up`
 1. Go to `http://localhost:8501/` to access the frontend.
 
 ## Configure development environment:

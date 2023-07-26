@@ -17,4 +17,6 @@ COPY src /app/frontend/src
 
 HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
 
-ENTRYPOINT ["python3", "-m", "streamlit", "run", "frontend/src/st_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["python3", "-m", "streamlit", "run", "frontend/src/st_app.py", \
+            "--server.port=8501", "--server.address=0.0.0.0", \
+            "--", "--docker"]

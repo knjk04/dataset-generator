@@ -1,3 +1,4 @@
+import argparse
 import time
 
 import pandas as pd
@@ -6,6 +7,17 @@ import streamlit as st
 from frontend.src.api import get_models, get_response
 from frontend.src.server_exception import ServerException
 from frontend.src.util import df_to_csv, df_to_json
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--docker", action="store_true")
+args = parser.parse_args()
+if args.docker:
+    HOST = "http://backend"
+else:
+    # local development
+    HOST = "http://127.0.0.1"
+print(HOST)
+
 
 app_title = "Dataset Generator"
 st.set_page_config(page_title=app_title)
@@ -44,7 +56,7 @@ def get_gpt_radio():
 
     Da Vinci's training data only goes up to Oct 2019.
     """
-    return st.radio("Which GPT model would you like to use?", get_models(),
+    return st.radio("Which GPT model would you like to use?", get_models(HOST),
                     help=tooltip)
 
 
@@ -81,7 +93,7 @@ def generate_dataset():
     # Show spinner until a DataFrame is returned
     with st.spinner(f"Generating a dataset of {dataset_entered}..."):
         try:
-            df = get_response(dataset_entered, gpt_choice, api_key)
+            df = get_response(dataset_entered, gpt_choice, api_key, HOST)
             # the truth value of a DataFrame is ambiguous, so cannot use
             # 'while not df'
             while df is None:

@@ -11,16 +11,18 @@ import requests
 
 from frontend.src.server_exception import ServerException
 
-BASE_URL = "http://127.0.0.1:8000"
-
 logger = logging.getLogger(__name__)
 # Set other loggers to error to not clutter this app's logs
 logging.basicConfig(level=logging.ERROR)
 logging.getLogger(__name__).setLevel(logging.DEBUG)
 
 
-def get_models() -> List[str]:
-    r = requests.get(f"{BASE_URL}/models")
+def get_base_url(host: str) -> str:
+    return f"{host}:8000"
+
+
+def get_models(host) -> List[str]:
+    r = requests.get(f"{get_base_url(host)}/models")
     # TODO: show error message if status not 200 OK
     return ast.literal_eval(r.text)
 
@@ -37,11 +39,13 @@ def get_auth_header(api_key: str):
     }
 
 
-def get_response(dataset_of: str, gpt_choice, api_key: str) -> pd.DataFrame:
+def get_response(dataset_of: str, gpt_choice, api_key: str,
+                 host: str) -> pd.DataFrame:
+    base_url = get_base_url(host)
     if gpt_choice == Models.GPT_3_5.value:
-        url = f"{BASE_URL}/gpt-3.5/{dataset_of}"
+        url = f"{base_url}/gpt-3.5/{dataset_of}"
     else:
-        url = f"{BASE_URL}/davinci/{dataset_of}"
+        url = f"{base_url}/davinci/{dataset_of}"
 
     headers = get_auth_header(api_key)
 
