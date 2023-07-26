@@ -29,6 +29,8 @@ Prerequisites:
 1. Install pre-commit hook: `pre-commit install`
 1. (Optional) run hook: `pre-commit run --all-files`
 
+The `backend` and `frontend` directories also contain `requirements` that need to be installed if running locally without Docker.
+
 PyCharm:
 Mark the `src` directory as sources root:
 ![PyCharm sources root](docs/pycharm.png)
