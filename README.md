@@ -16,22 +16,18 @@ use case
 ## Running locally:
 
 Prerequisites:
-- Python installed (test with Python 3.11)
+- Docker
+   - Windows or macOS: install [Docker Desktop](https://www.docker.com/products/docker-desktop)
+   - Linux: install [Docker Engine](https://docs.docker.com/engine/) and [Docker Compose](https://docs.docker.com/compose/)
 
-Steps:
-1. Install dependencies: `pip install -r src/requirements.txt`
-
-Run backend:
-1. In the project's root directory, run `python src/backend/app.py`
-
-Run frontend:
-1. Change to `src` directory: `cd src`
-1. Run app: `python -m streamlit run frontend/st_app.py`
+1. In the root of the project, build the images: `docker-compose build`
+1. Run the services: `docker-compose up`
+1. Go to `http://localhost:8501/` to access the frontend.
 
 ## Configure development environment:
-1. Run pip install -r src/requirements-dev.txt
-1. Install pre-commit hook: pre-commit install
-1. (Optional) run hook: pre-commit run --all-files
+1. Run `pip install -r requirements-dev.txt`
+1. Install pre-commit hook: `pre-commit install`
+1. (Optional) run hook: `pre-commit run --all-files`
 
 PyCharm:
 Mark the `src` directory as sources root:
