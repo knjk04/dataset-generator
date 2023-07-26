@@ -1,13 +1,13 @@
 import ast
-import bs4
 import logging
 from enum import Enum
 from io import StringIO
-from requests.exceptions import HTTPError
 from typing import List
 
+import bs4
 import pandas as pd
 import requests
+from requests.exceptions import HTTPError
 
 from frontend.src.server_exception import ServerException
 
